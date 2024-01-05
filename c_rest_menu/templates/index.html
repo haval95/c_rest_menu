@@ -4,7 +4,23 @@
       <title>Capstone Project</title>
    </head>
    <body>
-      <img src="{% static 'img/logo.png' %}">
-      <h1 style="text-align:center;">Welcome To Little Lemon Restaurant</h1>
+     
+      <h1 style="text-align:center;">Welcome To Little Lemon Restaurant</h1> <img src="{% static 'img/logo.png' %}">
+
+      <h1>this a static page  and the api end points are:</h1>
+      <ul>
+        
+           <li>requires username and password for user authentication</li>
+           <li> http://127.0.0.1:8000/api/token/  </li>
+         <hr>
+         
+           <li>requires username and password and email for user registration</li>
+           <li> http://127.0.0.1:8000/auth/users/</li>
+         <hr>
+         
+           <li>to show bookings and also post bookings providing name, no_guests, date</li>
+           <li> http://127.0.0.1:8000/api/bookings/</li>
+          <hr>
+      </ul>
    </body>
 </html>

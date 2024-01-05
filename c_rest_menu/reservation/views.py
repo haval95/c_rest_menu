@@ -1,5 +1,6 @@
 from django.http import HttpResponse
+from django.shortcuts import render
 
 
 def sayHello(request):
-    return HttpResponse("Hello Worlddddddddd")
+    return render(request, "index.html", {"context_variable": "some_value"})
