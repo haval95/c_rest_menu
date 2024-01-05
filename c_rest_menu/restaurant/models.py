@@ -9,6 +9,12 @@ class Booking(models.Model):
     no_guests = models.IntegerField()
     booking_date = models.DateTimeField(default=timezone.now)
 
+    def __str__(self):
+        return f"{self.name} : {str(self.no_guests)}"
+
+    def get_item(self):
+        return f"{self.name} : {str(self.no_guests)}"
+
 
 class Menu(models.Model):
     title = models.CharField(max_length=50)

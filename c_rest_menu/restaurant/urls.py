@@ -1,5 +1,10 @@
 from django.urls import path
-from .views import booking_view, menu_view, single_menu_item, single_booking_item
+from .views import (
+    booking_view,
+    menu_view,
+    single_menu_item,
+    single_booking_item,
+)
 
 urlpatterns = [
     path("bookings/", booking_view.as_view(), name="booking_view"),
