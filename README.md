@@ -27,3 +27,21 @@ To run the project, follow these steps:
     ```
 
 This sequence of steps will clone the repository, set up the virtual environment, install dependencies, and run the application locally.
+
+
+# API END POINTS
+
+ **requires username and password for user authentication**
+```bash
+ http://127.0.0.1:8000/api/token/
+```
+**requires username and password and email for user registration**
+ ```bash
+ Http://127.0.0.1:8000/auth/users/
+ ```
+**to show bookings and also post bookings providing name, no_guests, date**
+ ```bash
+http://127.0.0.1:8000/api/bookings/
+ ```
+
+    
