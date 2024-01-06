@@ -8,11 +8,17 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 class category(models.Model):
     name = models.CharField(max_length=25)
+    name_lang = models.CharField(max_length=30, default=None)
+
+    def __str__(self):
+        return self.name
 
 
 class menu_item(models.Model):
     name = models.CharField(max_length=35)
+    name_lang = models.CharField(max_length=35, default=None)
     describtion = models.CharField(max_length=100)
+    describtion_lang = models.CharField(max_length=100, default=None)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     is_available = models.BooleanField(default=True)
     category_id = models.ForeignKey(
@@ -20,6 +26,10 @@ class menu_item(models.Model):
         related_name="category",
         on_delete=models.CASCADE,
     )
+    img = models.ImageField(blank=True)
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class order(models.Model):
@@ -47,6 +57,9 @@ class ordered_item(models.Model):
     )
     quantity = models.IntegerField()
     sub_total = models.DecimalField(max_digits=8, decimal_places=2)
+
+    def __str__(self) -> str:
+        return self.item_id.name
 
 
 # class Booking(models.Model):
