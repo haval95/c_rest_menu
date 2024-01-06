@@ -16,9 +16,11 @@ class menu_item_serializer(serializers.ModelSerializer):
 
 
 class category_serializer(serializers.ModelSerializer):
+    menu_items = menu_item_serializer(many=True, read_only=True)
+
     class Meta:
         model = category
-        fields = "__all__"
+        fields = ["name", "name_lang", "menu_items"]
 
 
 class orderd_item_serializer(serializers.ModelSerializer):
@@ -31,15 +33,3 @@ class order_Serializer(serializers.ModelSerializer):
     class Meta:
         model = order
         fields = "__all__"
-
-
-# class menu_serializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Menu
-#         fields = "__all__"
-
-
-# class booking_serializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Booking
-#         fields = "__all__"

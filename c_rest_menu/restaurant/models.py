@@ -23,9 +23,10 @@ class menu_item(models.Model):
     is_available = models.BooleanField(default=True)
     category_id = models.ForeignKey(
         category,
-        related_name="category",
+        related_name="menu_items",
         on_delete=models.CASCADE,
     )
+
     img = models.ImageField(blank=True)
 
     def __str__(self) -> str:
