@@ -21,3 +21,8 @@ class category_view(generics.ListCreateAPIView):
 class single_category_view(generics.RetrieveUpdateDestroyAPIView):
     queryset = category.objects.all()
     serializer_class = category_serializer
+
+
+class order_view(generics.ListCreateAPIView):
+    queryset = order.objects.all()
+    serializer_class = order_Serializer

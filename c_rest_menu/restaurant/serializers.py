@@ -24,12 +24,21 @@ class category_serializer(serializers.ModelSerializer):
 
 
 class orderd_item_serializer(serializers.ModelSerializer):
+    item_id = menu_item_serializer(read_only=True)
+
     class Meta:
         model = ordered_item
-        fields = "__all__"
+        fields = ["quantity", "sub_total", "item_id"]
 
 
 class order_Serializer(serializers.ModelSerializer):
+    order_item = orderd_item_serializer(many=True, read_only=True)
+
     class Meta:
         model = order
-        fields = "__all__"
+        fields = [
+            "customer_id",
+            "time",
+            "total_order_before_discount",
+            "order_item",
+        ]
