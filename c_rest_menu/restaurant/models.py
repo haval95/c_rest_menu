@@ -40,7 +40,9 @@ class order(models.Model):
         on_delete=models.CASCADE,
     )
     time = models.DateTimeField(auto_now_add=True)
-    total_order_before_discount = models.DecimalField(max_digits=8, decimal_places=2)
+    total_order_before_discount = models.DecimalField(
+        max_digits=8, decimal_places=2, default=0
+    )
     discount = models.IntegerField(
         default=0,
         validators=[
@@ -48,19 +50,8 @@ class order(models.Model):
             MaxValueValidator(limit_value=100),
         ],
     )
-    total_order_after_discount = models.DecimalField(max_digits=8, decimal_places=2)
+    total_order_after_discount = models.DecimalField(
+        max_digits=8, decimal_places=2, default=0
+    )
     status = models.BooleanField(default=False)
-
-
-class ordered_item(models.Model):
-    order_id = models.ForeignKey(
-        order, related_name="order_item", on_delete=models.CASCADE
-    )
-    item_id = models.ForeignKey(
-        menu_item, related_name="ordered_items", on_delete=models.CASCADE
-    )
-    quantity = models.IntegerField()
-    sub_total = models.DecimalField(max_digits=8, decimal_places=2)
-
-    def __str__(self) -> str:
-        return self.item_id.name
+    items = models.ManyToManyField(menu_item, related_name="ordered_items", blank=True)

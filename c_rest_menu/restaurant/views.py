@@ -8,9 +8,9 @@ from .serializers import (
     category_serializer,
     menu_item_serializer,
     order_Serializer,
-    orderd_item_serializer,
 )
 from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.models import User
 
 
 class category_view(generics.ListCreateAPIView):
@@ -23,6 +23,6 @@ class single_category_view(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = category_serializer
 
 
-class order_view(generics.ListCreateAPIView):
+class create_order_view(generics.ListCreateAPIView):
     queryset = order.objects.all()
     serializer_class = order_Serializer
