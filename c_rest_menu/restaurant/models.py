@@ -6,7 +6,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 # Create your models here.
 
 
-class category(models.Model):
+class Category(models.Model):
     name = models.CharField(max_length=25)
     name_lang = models.CharField(max_length=30, default=None)
 
@@ -14,7 +14,7 @@ class category(models.Model):
         return self.name
 
 
-class menu_item(models.Model):
+class Menu_item(models.Model):
     name = models.CharField(max_length=35)
     name_lang = models.CharField(max_length=35, default=None)
     describtion = models.CharField(max_length=100)
@@ -22,7 +22,7 @@ class menu_item(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2)
     is_available = models.BooleanField(default=True)
     category_id = models.ForeignKey(
-        category,
+        Category,
         related_name="menu_items",
         on_delete=models.CASCADE,
     )
@@ -33,13 +33,11 @@ class menu_item(models.Model):
         return self.name
 
 
-class order(models.Model):
+class Order(models.Model):
     customer_id = models.ForeignKey(
-        User,
-        related_name="order_user",
-        on_delete=models.CASCADE,
+        User, related_name="order_user", on_delete=models.CASCADE, blank=True
     )
-    time = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     total_order_before_discount = models.DecimalField(
         max_digits=8, decimal_places=2, default=0
     )
@@ -54,4 +52,26 @@ class order(models.Model):
         max_digits=8, decimal_places=2, default=0
     )
     status = models.BooleanField(default=False)
-    items = models.ManyToManyField(menu_item, related_name="ordered_items", blank=True)
+
+
+class Ordered_item(models.Model):
+    order = models.ForeignKey(
+        Order, on_delete=models.CASCADE, related_name="ordered_items"
+    )
+    menu_item = models.ForeignKey(Menu_item, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+    unit_price = models.PositiveIntegerField(null=True)
+    total_price = models.PositiveIntegerField(null=True)
+
+
+class Cart(models.Model):
+    customer_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name="items")
+    menu_item = models.ForeignKey(Menu_item, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    unit_price = models.PositiveIntegerField(null=True)
+    total_price = models.PositiveIntegerField(null=True)
