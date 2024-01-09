@@ -26,8 +26,8 @@ class single_category_view(generics.RetrieveUpdateDestroyAPIView):
 
 
 class create_order_view(generics.ListCreateAPIView):
-    queryset = Ordered_item.objects.all()
-    serializer_class = ordered_item_serializer
+    queryset = Order.objects.all()
+    serializer_class = order_Serializer
 
     def create(self, request, *args, **kwargs):
         # Get the current user
@@ -41,7 +41,7 @@ class create_order_view(generics.ListCreateAPIView):
             )
 
         # Create the order
-        order = Order.objects.create(user=user)
+        order = Order.objects.create(customer_id=user)
 
         # Get the cart items and create order items based on them
         cart_items = cart.items.all()
@@ -58,16 +58,28 @@ class create_order_view(generics.ListCreateAPIView):
             total += cart_item.total_price
 
             order_items.append(order_item)
+        order.total_order_before_discount = total
 
-        order.total = total
+        if (
+            "discount" in request.data
+            and request.data["discount"].strip()  # Check if discount is not empty or only whitespace
+            and request.data["discount"].isnumeric()
+            and 0 <= int(request.data["discount"]) <= 100
+        ):
+            order.discount = int(request.data["discount"])
+            order.total_order_after_discount = total * ((100 - int(request.data["discount"])) / 100)
+        else:
+            order.total_order_after_discount = total
+
         order.save()
+
         # Delete the cart
         cart.delete()
 
         # Serialize the order and order items
         serializer = self.get_serializer(order)
         data = serializer.data
-        data["order_items"] = OrderItemSerializer(order_items, many=True).data
+        data["ordered_items"] = ordered_item_serializer(order_items, many=True).data
 
         return Response(data)
 

@@ -105,7 +105,7 @@ class ordered_item_serializer(serializers.ModelSerializer):
 
 class order_Serializer(serializers.ModelSerializer):
     customer_id = UserSerializer()
-    order_items = ordered_item_serializer(many=True)
+    ordered_items = ordered_item_serializer(many=True)
 
     class Meta:
         model = Order
