@@ -60,14 +60,18 @@ class create_order_view(generics.ListCreateAPIView):
             order_items.append(order_item)
         order.total_order_before_discount = total
 
+        discount_value = request.data.get("discount")
+
         if (
-            "discount" in request.data
-            and request.data["discount"].strip()  # Check if discount is not empty or only whitespace
-            and request.data["discount"].isnumeric()
-            and 0 <= int(request.data["discount"]) <= 100
+            len(discount_value)
+            and not isinstance(discount_value, str)
+            and int(discount_value)
+            and 0 <= int(discount_value) <= 100
         ):
-            order.discount = int(request.data["discount"])
-            order.total_order_after_discount = total * ((100 - int(request.data["discount"])) / 100)
+            order.discount = int(discount_value)
+            order.total_order_after_discount = total * (
+                (100 - int(discount_value)) / 100
+            )
         else:
             order.total_order_after_discount = total
 
