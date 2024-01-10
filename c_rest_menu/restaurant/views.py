@@ -28,6 +28,7 @@ class single_category_view(generics.RetrieveUpdateDestroyAPIView):
 class create_order_view(generics.ListCreateAPIView):
     queryset = Order.objects.all()
     serializer_class = order_Serializer
+    permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
         # Get the current user
@@ -91,3 +92,4 @@ class create_order_view(generics.ListCreateAPIView):
 class CartItemView(generics.ListCreateAPIView):
     queryset = CartItem.objects.all()
     serializer_class = CartItemSerializer
+    permission_classes = [IsAuthenticated]

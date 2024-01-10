@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import sayHello
+from .views import reserve_view
 
 urlpatterns = [
-    path("", sayHello, name="sayHello"),
+    path("", reserve_view.as_view(), name="reservation_view"),
 ]
