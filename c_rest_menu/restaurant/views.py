@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from rest_framework.response import Response
-from rest_framework import generics, permissions, status
+from rest_framework import generics, status
 
 from .models import Category, Menu_item, Order, Ordered_item, Cart, CartItem
 from .serializers import (

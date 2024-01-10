@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from rest_framework import generics, permissions, status
+from rest_framework import generics, status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .models import Reservation
 from .serializers import reservation_serializer
@@ -10,6 +11,7 @@ from datetime import timedelta
 class reserve_view(generics.ListCreateAPIView):
     queryset = Reservation.objects.all()
     serializer_class = reservation_serializer
+    permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save()
