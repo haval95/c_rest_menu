@@ -30,18 +30,57 @@ This sequence of steps will clone the repository, set up the virtual environment
 
 
 # API END POINTS
-
- **requires username and password for user authentication**
+<br /><br />
+**AUTHENTICATION AND REGISTRATION**
+<br /><br />
+<code >POST</code> - AUTHENTICATION - [USERNAME, PASSWORD]
 ```bash
  http://127.0.0.1:8000/api/token/
 ```
-**requires username and password and email for user registration**
+<code >POST</code> - REGISTRATION - [USERNAME, PASSWORD, EMAIL]
  ```bash
  Http://127.0.0.1:8000/auth/users/
  ```
-**to show bookings and also post bookings providing name, no_guests, date**
+<br /><br />
+**CATEGORIES AND MENU ITEMS**
+<br />
+<code >GET</code> - GATEGORIES AND MENUITEMS  - PUBLIC
  ```bash
-http://127.0.0.1:8000/api/bookings/
+    http://127.0.0.1:8000/api/categories/
+ ```
+<code >GET</code> - SINGLE CATEGORY AND MENUITEMS  - PUBLIC
+ ```bash
+    http://127.0.0.1:8000/api/categories/[ID]
  ```
 
-    
+<code >POST</code> - INSERT  CATEGORY   [NAME, NAME_LANG]
+ ```bash
+    http://127.0.0.1:8000/api/categories/
+ ```
+<br /><br />
+**CART**
+<br />
+<code >GET</code> - CART ITEMS - AUTHENTICATION REQUIRED
+ ```bash
+   http://127.0.0.1:8000/api/cart/
+ ```
+<code >POST</code> - INSERT AN ITEM TO CART - [QUANTITY, MENU_ITEM_ID]
+ ```bash
+   http://127.0.0.1:8000/api/cart/
+ ```
+<br /><br />
+**RESERVATION**
+<br />
+
+<code >POST</code> - RESERVING A TABLE
+ ```bash
+    http://127.0.0.1:8000/api/reservation/
+ ```
+ ```bash
+  {
+    "table_id": 1,
+    "reservation_time": "2024-01-13T06:31:00Z",
+    "for_how_long": "01:02:00",
+}
+ ```
+
