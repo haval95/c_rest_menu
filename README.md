@@ -84,3 +84,9 @@ This sequence of steps will clone the repository, set up the virtual environment
 }
  ```
 
+<code >GET</code> -  RESERVED TIMES
+ ```bash
+    http://127.0.0.1:8000/api/reservation/
+ ```
+ ```bash
+
