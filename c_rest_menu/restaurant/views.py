@@ -19,6 +19,13 @@ class category_view(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = category_serializer
 
+    def get_permissions(self):
+        if self.request.method == "POST":
+            # Only allow authenticated users to create objects
+            return [IsAuthenticated()]
+        # For other methods, no authentication is required
+        return []
+
 
 class single_category_view(generics.RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
